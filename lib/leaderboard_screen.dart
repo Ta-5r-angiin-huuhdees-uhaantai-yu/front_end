@@ -22,7 +22,6 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
     _bloc = LeaderboardBloc(ApiService());
   }
 
-
   @override
   void dispose() {
     _bloc.close();
@@ -49,8 +48,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
         userList = state.data ?? [];
         print('eeeeeeeeeeee${userList}');
       });
-    } else if (state is LeaderboardFailure) {
-    }
+    } else if (state is LeaderboardFailure) {}
   }
 
   Widget _blocBuilder(BuildContext context, LeaderboardState state) {
@@ -59,16 +57,16 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text("Leaderboard"),
-        leading: BackButton(),
+        title: const Text("Leaderboard"),
+        leading: const BackButton(),
       ),
       body: ListView.builder(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         itemCount: users.length,
         itemBuilder: (context, index) {
           final user = users[index];
           return Container(
-            margin: EdgeInsets.only(bottom: 12),
+            margin: const EdgeInsets.only(bottom: 12),
             decoration: BoxDecoration(
               color: Colors.grey[900],
               borderRadius: BorderRadius.circular(12),
@@ -79,9 +77,24 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                 children: [
                   Text(
                     "${user.rank}.",
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
                   ),
-                  SizedBox(width: 8),
+                  if (user.rank == 1)
+                    const Icon(Icons.emoji_events,
+                        color: Colors.amber, size: 24)
+                  else if (user.rank == 2)
+                    const Icon(Icons.emoji_events,
+                        color: Colors.grey, size: 24)
+                  else if (user.rank == 3)
+                    const Icon(Icons.emoji_events,
+                        color: Colors.brown, size: 24)
+                  else
+                    const Icon(Icons.star_border,
+                        color: Colors.white70, size: 20),
+                  const SizedBox(width: 8),
                   CircleAvatar(
                     backgroundImage: NetworkImage(user.profileImage),
                   ),
@@ -89,13 +102,17 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
               ),
               title: Text(
                 user.login_name,
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
               trailing: Text(
                 user.totalPoints.toStringAsFixed(0),
-                style: TextStyle(color: Colors.cyanAccent, fontWeight: FontWeight.bold, fontSize: 20),
+                style: const TextStyle(
+                    color: Colors.cyanAccent,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
               ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             ),
           );
         },

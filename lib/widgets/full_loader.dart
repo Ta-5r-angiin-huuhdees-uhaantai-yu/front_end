@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:bd_frontend/assets/images.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -16,7 +17,7 @@ void fullLoader(bool status, {bool loaderHasShown = false}) {
             filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
             child: Center(
               child: Lottie.asset(
-                'lib/assets/maya_loader.json',
+                Imgs.loader,
                 width: 130,
                 height: 130,
               ),

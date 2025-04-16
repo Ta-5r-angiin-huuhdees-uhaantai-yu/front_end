@@ -132,6 +132,21 @@ class _QuizScreenState extends State<QuizScreen> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  q.lesson,
+                  style: TextStyle(color: Colors.cyan, fontSize: 20, fontWeight: FontWeight.bold),
+                  maxLines: 2,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '${q.classLevel}-р анги',
+                  style: TextStyle(color: Colors.cyan, fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
             Text(
               q.questionText,
               style: TextStyle(color: Colors.white, fontSize: 20),
@@ -224,7 +239,7 @@ class ResultScreen extends StatelessWidget {
           if (state is AnswerLoading) {
             return _loading();
           } else if (state is BulkAnswerSuccess) {
-            return _resultView(context, state.earnedMoney ?? 0, state.correctCount == 10);
+            return _resultView(context, state.earnedMoney ?? 0, state.correctCount == 10, state.correctCount ?? 0);
           } else if (state is AnswerFailure) {
             return _errorView(state.error);
           }
@@ -246,7 +261,7 @@ class ResultScreen extends StatelessWidget {
     ),
   );
 
-  Widget _resultView(BuildContext context, int earnedMoney, bool isWinner) => Scaffold(
+  Widget _resultView(BuildContext context, int earnedMoney, bool isWinner, [int correctCount = 0]) => Scaffold(
     backgroundColor: Colors.black,
     appBar: AppBar(title: Text("Game Over"), backgroundColor: Colors.black),
     body: Center(
@@ -255,10 +270,8 @@ class ResultScreen extends StatelessWidget {
         children: [
           Text(
             earnedMoney == 10000
-                ? "👑 Та 5-р ангийн хүүхдээс илүү ухаантай гэдгээ баталлаа! 10000 оноо авсанд баяр хүргэе! 🧠✨"
-                : isWinner
-                ? "🎉 Баяр хүргэе! Та бүх асуултанд зөв хариулж чадлаа!\nТа $earnedMoney оноо авлаа😁"
-                : "Та $earnedMoney оноо авлаа. Та 5-р ангийн хүүхдээс ухаан муутай гэдгээ хүлээн зөвшөөрнө биз дээ😃",
+                ? "👑 Та 5-р ангийн хүүхдээс илүү ухаантай гэдгээ баталлаа! $earnedMoney оноо авсанд баяр хүргэе! 🧠✨"
+                : "Та 10 асуултнаас $correctCount-д хариулж $earnedMoney оноо авлаа. Та 5-р ангийн хүүхдээс ухаан муутай гэдгээ хүлээн зөвшөөрнө биз дээ😃",
             style: TextStyle(fontSize: 24, color: Colors.white),
             textAlign: TextAlign.center,
           ),

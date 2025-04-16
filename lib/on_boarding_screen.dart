@@ -11,21 +11,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Map<String, String>> onboardingData = [
     {
-      "title": "Boost Your Brain",
-      "subtitle": "Fun quizzes to challenge your mind and learn fast!",
+      "title": "Тархиа хөгжүүлцгээе",
+      "subtitle": "Та 5-р ангийн хүүхдээс ухаантай юу!",
       "image": "🧠"
     },
     {
-      "title": "Track Progress",
-      "subtitle": "Earn points, unlock levels, and see how you improve.",
+      "title": "Өндөр оноо авах боломж",
+      "subtitle": "Та асуултанд хариулж оноогоо цуглуулан бусадтай өрсөлдөөрэй",
       "image": "📊"
     },
     {
-      "title": "Play Anytime",
-      "subtitle": "Pick from subjects like Math, History, Chemistry and more.",
+      "title": "Хүссэн үедээ тоглоорой",
+      "subtitle": "1 - 5-р ангийн хүүхдүүдийн үздэг хичээлийн талаар та хэр мэдэх вэ?",
       "image": "⏰"
     }
   ];
+
+  final List<int> pointTiers = [50, 100, 250, 500, 750, 1000, 1500, 2500, 5000, 10000];
 
   void nextPage() {
     if (currentPage == 2) {
@@ -72,6 +74,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       style: TextStyle(fontSize: 16, color: Colors.white70),
                       textAlign: TextAlign.center,
                     ),
+                    if (index == 1) ...[
+                      SizedBox(height: 30),
+                      Text("Онооны шатлал", style: TextStyle(fontSize: 20, color: Colors.orangeAccent)),
+                      SizedBox(height: 10),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: List.generate(pointTiers.length, (i) {
+                          return Chip(
+                            label: Text(
+                              "${i + 1}-р асуулт: ${pointTiers[i]}",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.orange,
+                          );
+                        }),
+                      ),
+                    ]
                   ],
                 ),
               );

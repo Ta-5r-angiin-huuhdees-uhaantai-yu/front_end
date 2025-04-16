@@ -67,6 +67,7 @@ class AnswerBloc extends Bloc<AnswerEvent, AnswerState> {
 
       final data = response.data;
       if (data['success'] == true) {
+        print('cccccccccccccc${response.data}');
         emit(BulkAnswerSuccess(
           correct: null,
           earnedMoney: data['earnedMoney'],
